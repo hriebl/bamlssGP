@@ -3,7 +3,7 @@
 
 # bamlssGP
 
-> Gaussian process responses for the bamlss package
+> Gaussian process responses for the bamlss R package
 
 <!-- badges: start -->
 
