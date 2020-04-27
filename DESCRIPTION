@@ -1,0 +1,15 @@
+Package: bamlssGP
+Title: Gaussian Process Responses for the bamlss Package
+Version: 0.0.0.9000
+Authors@R: as.person("Hannes Riebl <hriebl@uni-goettingen.de> [aut, cre]")
+Description: This package implements different Gaussian processes as response
+    distribution families for the bamlss package, i.e. for Bayesian additive
+    models for location, scale, and shape. It also provides an efficient MCMC
+    sampler for these models.
+Imports: bamlssAPI, purrr, rlang
+Suggests: bamlss, numDeriv, testthat
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.0

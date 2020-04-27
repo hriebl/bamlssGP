@@ -1,0 +1,84 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+
+rd2md <- function(rd) {
+  html <- capture.output(tools::Rd2HTML(tools::parse_Rd(rd)))
+  md <- system2("pandoc", "-f html -t gfm", stdout = TRUE, input = html)
+
+  # remove header
+
+  title <- grep("^## ", md)[1]
+  md <- md[-seq_len(title - 1)]
+
+  # remove empty lines between list items
+
+  items <- grep("^  - ", md)
+  gaps <- items[which(diff(items) == 2)] + 1
+  gaps <- gaps[md[gaps] == ""]
+
+  if (length(gaps)) {
+    md <- md[-gaps]
+  }
+
+  # move all headings down by one level
+
+  md <- sub("^#", "##", md)
+
+  # mark code blocks as R code
+
+  code <- grep("^ {4}", md)
+  start <- code[diff(c(-1, code)) > 1]
+  end <- code[diff(c(code, Inf)) > 1]
+
+  for (i in seq_along(start)) {
+    md <- append(md, "``` r", after = start[i] - 1 + 2 * (i - 1))
+    md <- append(md, "```", after = end[i] + 1 + 2 * (i - 1))
+  }
+
+  md <- sub("^ {4}", "", md)
+
+  cat(md, sep = "\n")
+  return(invisible(md))
+}
+```
+
+# bamlssGP
+
+> Gaussian process responses for the bamlss package
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+This R package implements different Gaussian processes as response distribution families for the bamlss package, i.e. for Bayesian additive models for location, scale, and shape. It also provides an efficient MCMC sampler for these models.
+
+Take a look at the help pages below to get a better idea of what the package does.
+
+## Installation
+
+You can install the development version of bamlssGP from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("hriebl/bamlssGP")
+```
+
+## Help pages
+
+```{r man1, echo = FALSE, results = "asis"}
+rd2md("man/gp_constant_bamlss.Rd")
+```
+
+```{r man2, echo = FALSE, results = "asis"}
+rd2md("man/sample_bamlss_gp.Rd")
+```
