@@ -216,7 +216,8 @@ gp_weibull_bamlss <- function(y, s, Z = NULL, D, q = NULL, initial_par, ...) {
 
   # initialize cache
 
-  one_to_N <- 1:length(y)
+  N <- length(y)
+  one_to_N <- 1:N
   n <- map_int(y, length)
   two_n <- 2 * n
 
@@ -225,7 +226,7 @@ gp_weibull_bamlss <- function(y, s, Z = NULL, D, q = NULL, initial_par, ...) {
 
   linear_mu <- 0
   dmu_dlinear <- transpose(map(Z, array_branch, margin = 2))
-  linear_par <- matrix(nrow = n, ncol = length(linear_names))
+  linear_par <- matrix(nrow = N, ncol = length(linear_names))
   colnames(linear_par) <- linear_names
 
   y_mu <- NULL
