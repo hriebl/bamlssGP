@@ -55,7 +55,8 @@ m_fun <- function(s, l, a, b) {
 
 dm_da <- function(s, l, a, b) {
   tmp <- (s / b)^a
-  l * a * (log(s) - log(b)) * tmp * dweibull(tmp, 1, 1)
+  out <- l * a * (log(s) - log(b)) * tmp * dweibull(tmp, 1, 1)
+  ifelse(s == 0, 0, out)
 }
 
 #' @importFrom stats dweibull
